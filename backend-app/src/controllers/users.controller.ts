@@ -15,8 +15,8 @@ export async function postUser(req: Request, res: Response, next: NextFunction) 
     const user = await createUser(parsed);
     res.status(201).json(user);
   } catch (e: any) {
-    if (e.name === 'ZodError') {
-      e.status = 400; e.details = e.issues;
+    if (e?.code === '23505') { 
+      e.status = 409; e.message = 'Email already exists';
     }
     next(e);
   }

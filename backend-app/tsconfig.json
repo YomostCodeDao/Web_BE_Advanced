@@ -31,7 +31,9 @@
     "verbatimModuleSyntax": false,
     // Để mặc định auto, tránh ép “force” gây cảnh báo không cần thiết
     "moduleDetection": "auto",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*.ts"
