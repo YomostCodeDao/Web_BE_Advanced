@@ -1,0 +1,53 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.*  # giữ package-lock.json, chỉ bỏ file tạm
+
+# Build output
+dist/
+build/
+.tmp/
+.temp/
+
+# TypeScript
+*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.*
+!.env.example  # gợi ý giữ file mẫu (không chứa secret)
+
+# Logs
+logs/
+*.log
+log/
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage & testing
+coverage/
+.nyc_output/
+
+# Editor/OS junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Prisma
+# (giữ prisma/schema.prisma và migrations trong git)
+# Nếu dùng SQLite cho dev, bỏ file DB:
+*.db
+*.db-journal
+
+# Docker
+docker-data/
+
+/src/generated/prisma
