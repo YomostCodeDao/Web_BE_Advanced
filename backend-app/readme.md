@@ -1,6 +1,7 @@
 Chạy DB: docker compose up -d
 npx prisma migrate dev --name init
 
+<<<<<<< HEAD
 # 1) DB (docker) bật trước bật Docker Destop
 
 docker compose up -d
@@ -30,3 +31,9 @@ Mục tiêu học
 “init ra để sau đào tạo là dùng cái đó” → Làm starter template để dùng dạy/đào tạo nội bộ.
 
 “tìm cách hiểu càng sâu cái project… tạo sao cho nó clean ưng ý” → Ưu tiên kiến trúc sạch, chuẩn hoá cấu trúc thư mục, code style, config.
+=======
+1) docker compose up -d
+2) npm run prisma:generate
+3) npm run prisma:migrate
+4) npm run dev
+>>>>>>> a00301a8383169521efbf012bdf10719b0a031cf
