@@ -1,37 +1,21 @@
 import express from 'express';
-import cors from 'cors';
 import helmet from 'helmet';
+import cors from 'cors';
 import morgan from 'morgan';
-import swaggerUi from 'swagger-ui-express';
-import swaggerJSDoc from 'swagger-jsdoc';
-import healthRoute from './routes/health.route';
-import usersRoute from './routes/users.route';
-import { errorHandler } from './middlewares/error.middleware';
+import { setupSwagger } from './config/swagger';
+import { errorMiddleware } from './common/middlewares/error.middleware';
+import { healthRouter } from './modules/health/health.routes';
+import { authRouter } from './modules/auth/auth.routes';
 
-const app = express();
+export const app = express();
 
-// Middlewares
 app.use(helmet());
-app.use(cors());
-app.use(express.json());
+app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
 app.use(morgan('dev'));
+app.use(express.json());
 
-// Swagger (tạo spec từ JSDoc)
-const swaggerSpec = swaggerJSDoc({
-  definition: {
-    openapi: '3.0.3',
-    info: { title: 'Express Postgres API', version: '1.0.0' },
-    servers: [{ url: 'http://localhost:3000' }],
-  },
-  apis: ['src/routes/*.ts'], 
-});
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+app.use('/api/health', healthRouter);
+app.use('/api/auth', authRouter);
 
-// Routes
-app.use('/api', healthRoute);
-app.use('/api', usersRoute);
-
-// Error handler
-app.use(errorHandler);
-
-export default app;
+setupSwagger(app);
+app.use(errorMiddleware);

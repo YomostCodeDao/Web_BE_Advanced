@@ -1,20 +1,14 @@
-version: "3.9"
 services:
   postgres:
     image: postgres:16
-    container_name: pg_express_demo
+    container_name: trello_postgres
     environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: devpass
-      POSTGRES_DB: appdb
+      POSTGRES_USER: trello
+      POSTGRES_PASSWORD: trello
+      POSTGRES_DB: trello_clone
     ports:
-      - "5432:5432"
+      - "5432:5432" # hoặc "5433:5432" nếu 5432 đang bận
     volumes:
       - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dev -d appdb"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
 volumes:
-  pgdata:
+  pgdata: {}

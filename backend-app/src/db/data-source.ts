@@ -1,22 +1,25 @@
+// src/db/data-source.ts
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User } from '../entities/User';
-import 'dotenv/config';
-
-function requireEnv(name: string): string {
-    const v = process.env[name];
-    if (!v) {
-        throw new Error(`Lỗi lấy biến: ${name}`);
-    }
-    return v;
-}
-
-const DB_URL = requireEnv('DATABASE_URL');
+import { env } from '../config/env';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { User } from '../modules/users/user.entity';
+import { RefreshToken } from '../modules/auth/refresh_token.entity';
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    url: DB_URL,              
-    entities: [User],
-    synchronize: true,         
-    logging: false,
+    host: env.DB_HOST,     // ví dụ: 'localhost'
+    port: env.DB_PORT,     // ví dụ: 5432
+    username: env.DB_USER, // 'trello'
+    password: env.DB_PASS, // 'trello'
+    database: env.DB_NAME, // 'trello_clone'
+
+    // 🔴 QUAN TRỌNG: TẮT SSL HOÀN TOÀN CHO LOCAL
+    ssl: false,
+
+    entities: [User, RefreshToken],
+    migrations: ['dist/db/migrations/*.js'],
+    synchronize: false,
+    logging: env.NODE_ENV !== 'production',
+    namingStrategy: new SnakeNamingStrategy(),
 });
