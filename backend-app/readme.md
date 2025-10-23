@@ -1,15 +1,7 @@
-# 1) DB (docker) bật trước bật Docker Destop
+# 1) docker compose up -d
 
-docker compose up -d
+# 2) npm run build
 
-# 2) Generate Prisma client (lần đầu hoặc sau khi đổi schema)
+# 3) npm run prisma:migrate
 
-npm run build
-
-# 3) Migrate DB (lần đầu sẽ tạo bảng)
-
-npm run prisma:migrate
-
-# 4) Chạy dev server
-
-npm run dev
+# 4) npm run dev
